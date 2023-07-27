@@ -1,9 +1,9 @@
 <template>
-  <main class="flex min-h-screen flex-col md:flex-row">
+  <main class="flex min-h-screen flex-col overflow-hidden md:flex-row">
     <section
       class="relative h-[50vh] border-grayscale-dark bg-identity-primary md:flex-1"
     >
-      <IconLogo />
+      <IconLogo class="pt-6" />
 
       <div class="pokeball"></div>
     </section>
@@ -11,7 +11,7 @@
     <div class="hidden h-screen w-2 bg-grayscale-dark md:block lg:w-4"></div>
 
     <section
-      class="md:bg-pokemon-eletric flex h-[50vh] animate-comeFromBottom flex-col items-center justify-center gap-6 md:h-auto md:flex-1 md:animate-comeFromTop"
+      class="flex h-[50vh] animate-comeFromBottom flex-col items-center justify-center gap-6 md:h-auto md:flex-1 md:animate-comeFromTop md:bg-pokemon-electric"
     >
       <div
         class="hidden h-72 w-72 justify-center overflow-hidden rounded-full bg-grayscale-white px-4 pt-4 shadow-6-dp md:flex lg:h-96 lg:w-96"

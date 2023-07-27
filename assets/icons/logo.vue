@@ -18,7 +18,7 @@
     version="1.1"
     inkscape:version="0.48.4 r9939"
     sodipodi:docname="English_Pokémon_logo.svg"
-    class="mx-auto w-60 lg:w-72"
+    class="mx-auto w-60 animate-comeFromTop lg:w-72"
   >
     <defs id="defs202" />
     <linearGradient
