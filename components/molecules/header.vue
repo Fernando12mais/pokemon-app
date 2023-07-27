@@ -35,7 +35,7 @@ onMounted(() => {
   <div class="mb-2">
     <IconLogo />
   </div>
-  <header class="sticky top-[-1px] px-4" ref="header">
+  <header class="sticky top-[-1px] z-10 px-4" ref="header">
     <nav class="flex flex-col gap-4">
       <div>
         <AtmAutoComplete

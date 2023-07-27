@@ -27,6 +27,7 @@ export default defineEventHandler(async (event) => {
         pokemon.id,
         "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/",
       ),
+      alternatePicture: pokemon.sprites.front_default as string,
     };
 
     return response;

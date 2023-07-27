@@ -59,7 +59,7 @@ module.exports = {
       boxShadow: {
         "inner-2-dp": "0px 1px 3px 1px rgba(0, 0, 0, 0.40) inset",
         "2-dp": "0px 1px 3px 1px rgba(0, 0, 0, 0.25)",
-        "6-dp": "0px 3px 12px 3px rgba(0, 0, 0, 0.25)",
+        "6-dp": "0px 3px 12px 3px rgba(0, 0, 0, 0.40)",
       },
     },
   },

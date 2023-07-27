@@ -74,6 +74,7 @@ watch(
 
                 debounce(() => {
                   query = event.target.value;
+                  loading = false;
 
                   if (event.target.value.length < 1) cleanValues();
                 }, 600);
@@ -95,16 +96,19 @@ watch(
           @after-leave="query = ''"
         >
           <ComboboxOptions
-            class="absolute top-full mt-1 max-h-60 w-full max-w-sm -translate-x-1/2 overflow-auto rounded-md bg-grayscale-medium py-1"
+            class="absolute top-full mt-1 flex max-h-60 w-full max-w-sm -translate-x-1/2 flex-col overflow-auto rounded-md bg-grayscale-medium py-1"
           >
             <div
-              v-if="filteredItems.length === 0 && query !== ''"
+              v-if="filteredItems.length === 0 && query !== '' && !loading"
               class="relative cursor-default select-none px-4 py-2 text-grayscale-white"
             >
               Sem resultados
             </div>
-
+            <div class="mx-auto" v-if="loading">
+              <AtmLoading class="!w-10" />
+            </div>
             <ComboboxOption
+              v-if="!loading"
               v-for="item in filteredItems.slice(0, 10)"
               as="template"
               :key="item.value"

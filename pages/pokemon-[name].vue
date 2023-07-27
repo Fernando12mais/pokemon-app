@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { Pokemon } from "pokedex-promise-v2";
+import { PokemonByNameResponse } from "models/server/api/pokemon";
 
 const route = useRoute();
 const pokemonName = route.params.name;
 const capitalizedName = `${pokemonName[0].toUpperCase()}${pokemonName.slice(
   1,
 )}`;
+
+const handleImageError = (event: Event) => {
+  const img = event.target as HTMLImageElement;
+
+  img.src = data.value?.alternatePicture as string;
+};
 
 useHead({
   title: `${capitalizedName}`,
@@ -17,13 +23,9 @@ useHead({
   ],
 });
 
-const { data } = await useFetch<
-  Pokemon & { description: string; picture: string }
->(`/api/pokemon/${pokemonName}`);
-
-onMounted(() => {
-  console.log(data.value);
-});
+const { data } = await useFetch<PokemonByNameResponse>(
+  `/api/pokemon/${pokemonName}`,
+);
 </script>
 
 <template>
@@ -40,12 +42,15 @@ onMounted(() => {
         </h1>
       </header>
       <main class="flex flex-1 flex-col justify-center p-4">
-        <img
-          :src="data?.picture"
-          width="200"
-          height="200"
-          class="z-10 mx-auto drop-shadow-xl lg:w-64"
-        />
+        <ClientOnly>
+          <img
+            @error="handleImageError"
+            :src="data?.picture"
+            width="200"
+            height="200"
+            class="z-10 mx-auto drop-shadow-xl lg:w-64"
+          />
+        </ClientOnly>
         <section
           class="relative mx-auto -translate-y-8 rounded bg-grayscale-white p-4 shadow-inner-2-dp lg:mt-0"
         >

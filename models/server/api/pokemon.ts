@@ -6,6 +6,7 @@ export type PokemonByNameResponse = Pick<
 > & {
   description: string;
   picture: string;
+  alternatePicture: string;
 };
 
 export type PokemonsNamesResponse = {
@@ -14,5 +15,8 @@ export type PokemonsNamesResponse = {
 }[];
 
 export type PokemonsSearchResponse = {
-  pokemon: Pick<Pokemon, "name" | "types"> & { picture: string };
+  pokemon: Pick<Pokemon, "name" | "types"> & {
+    picture: string;
+    alternatePicture: string;
+  };
 }[];

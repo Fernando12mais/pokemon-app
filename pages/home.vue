@@ -71,7 +71,11 @@ onMounted(() => {
       <OrgCards :loading="loading" title="Pokémons" :pokemons="data || []" />
       <div class="mx-auto flex items-center gap-3">
         <AtmButton v-if="offset" @on-click="goToPreviousPage">Prev</AtmButton>
-        <AtmButton @on-click="goToNextPage">Next</AtmButton>
+        <AtmButton
+          v-if="data?.length && 12 < data.length"
+          @on-click="goToNextPage"
+          >Next</AtmButton
+        >
       </div>
     </main>
   </div>

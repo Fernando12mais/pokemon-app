@@ -7,7 +7,9 @@ export default defineEventHandler(async (event) => {
     const { offset, name } = getQuery(event);
     const quantity = 12;
 
-    const pokemonsList = (await pokedexApi.getPokemonsList()).results;
+    const pokemonsList = (await pokedexApi.getPokemonsList()).results.filter(
+      ({ name }) => !name.includes("-"),
+    );
     const index = pokemonsList.findIndex((list) =>
       list.name.includes(name?.toString() || ""),
     );
@@ -26,6 +28,7 @@ export default defineEventHandler(async (event) => {
 
     const response: PokemonsSearchResponse = pokemons?.map((item) => ({
       pokemon: {
+        alternatePicture: item.sprites.front_default as string,
         name: item.name,
         types: item.types,
         picture: getUrlImageFromPokemonId(
