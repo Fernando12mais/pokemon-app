@@ -18,6 +18,11 @@ module.exports = {
 
   theme: {
     extend: {
+      animation: {
+        comeFromTop: "comeFromTop 1s ease-out forwards",
+        comeFromBottom: "comeFromBottom 1s ease-out forwards",
+        fadeIn: "fadeIn .4s ease-out forwards",
+      },
       fontFamily: {
         poppins: "'Poppins', sans-serif",
       },

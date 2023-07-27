@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PokemonsSearchResponse } from "models/server/api/pokemon";
 export type CardsProps = {
-  pokemons: PokemonsSearchResponse;
+  pokemons: PokemonsSearchResponse["pokemons"];
   title: string;
   loading: boolean;
 };

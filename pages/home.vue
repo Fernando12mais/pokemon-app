@@ -27,6 +27,7 @@ function goToPreviousPage() {
   setItem("offset", offset);
 
   search.value = `/api/search?offset=${offset}&name=${name}`;
+  window.scrollTo({ top: 0 });
 }
 function goToNextPage() {
   offset += 20;
@@ -46,7 +47,7 @@ function goToFirstPage() {
 watch(pending, (newValue) => {
   debounce(() => {
     loading.value = newValue;
-  }, 70);
+  }, 80);
 });
 
 onMounted(() => {
@@ -68,11 +69,17 @@ onMounted(() => {
       <div v-if="offset">
         <AtmButton @on-click="goToFirstPage">Go to first page</AtmButton>
       </div>
-      <OrgCards :loading="loading" title="Pokémons" :pokemons="data || []" />
+      <OrgCards
+        :loading="loading"
+        title="Pokémons"
+        :pokemons="data?.pokemons || []"
+      />
       <div class="mx-auto flex items-center gap-3">
         <AtmButton v-if="offset" @on-click="goToPreviousPage">Prev</AtmButton>
         <AtmButton
-          v-if="data?.length && 12 < data.length"
+          v-if="
+            data?.pokemons.length && data.itemsPerPage <= data.pokemons.length
+          "
           @on-click="goToNextPage"
           >Next</AtmButton
         >

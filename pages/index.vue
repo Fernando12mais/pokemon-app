@@ -11,7 +11,7 @@
     <div class="hidden h-screen w-2 bg-grayscale-dark md:block lg:w-4"></div>
 
     <section
-      class="flex h-[50vh] flex-col items-center justify-center gap-6 md:h-auto md:flex-1 md:bg-pokemon-eletric"
+      class="md:bg-pokemon-eletric flex h-[50vh] animate-comeFromBottom flex-col items-center justify-center gap-6 md:h-auto md:flex-1 md:animate-comeFromTop"
     >
       <div
         class="hidden h-72 w-72 justify-center overflow-hidden rounded-full bg-grayscale-white px-4 pt-4 shadow-6-dp md:flex lg:h-96 lg:w-96"
@@ -24,12 +24,11 @@
       </div>
       <div class="max-w-[15.625rem] rounded bg-grayscale-white p-4 shadow-2-dp">
         <p class="body-1">
-          Olá treinador(a), vamos procurar uns pokémons e com sorte você poderá
-          obter um!
+          Hello coach, let's look for some pokemons and learn more about them!
         </p>
       </div>
 
-      <AtmLink to="/home" class="mx-auto">Iniciar Jornada</AtmLink>
+      <AtmLink to="/home" class="mx-auto">Let's go!</AtmLink>
     </section>
   </main>
 </template>

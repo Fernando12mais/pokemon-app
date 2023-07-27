@@ -96,7 +96,7 @@ const { data } = await useFetch<PokemonByNameResponse>(
               </ul>
             </div>
 
-            <p class="mt-4 px-4 body-2" @click="() => console.log(data)">
+            <p class="mt-4 px-4 body-2">
               {{ data?.description }}
             </p>
 
