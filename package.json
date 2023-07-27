@@ -2,8 +2,7 @@
   "name": "nuxt-app",
   "private": true,
   "scripts": {
-    "prebuild": "yarn test --watch=false",
-    "build": "nuxt build",
+    "build": "yarn test --watch=false && yarn nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
