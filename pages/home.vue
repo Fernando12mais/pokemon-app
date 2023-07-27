@@ -67,7 +67,9 @@ onMounted(() => {
 
     <main class="mx-auto flex max-w-screen-2xl flex-col px-4">
       <div v-if="offset">
-        <AtmButton @on-click="goToFirstPage">Go to first page</AtmButton>
+        <AtmButton class="mt-4" @on-click="goToFirstPage"
+          >Go to first page</AtmButton
+        >
       </div>
       <OrgCards
         :loading="loading"
