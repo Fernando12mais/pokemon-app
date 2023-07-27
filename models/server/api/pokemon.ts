@@ -15,8 +15,11 @@ export type PokemonsNamesResponse = {
 }[];
 
 export type PokemonsSearchResponse = {
-  pokemon: Pick<Pokemon, "name" | "types"> & {
-    picture: string;
-    alternatePicture: string;
-  };
-}[];
+  pokemons: {
+    pokemon: Pick<Pokemon, "name" | "types"> & {
+      picture: string;
+      alternatePicture: string;
+    };
+  }[];
+  itemsPerPage: number;
+};

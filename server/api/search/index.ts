@@ -26,17 +26,20 @@ export default defineEventHandler(async (event) => {
       },
     );
 
-    const response: PokemonsSearchResponse = pokemons?.map((item) => ({
-      pokemon: {
-        alternatePicture: item.sprites.front_default as string,
-        name: item.name,
-        types: item.types,
-        picture: getUrlImageFromPokemonId(
-          item.id,
-          "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/",
-        ),
-      },
-    }));
+    const response: PokemonsSearchResponse = {
+      pokemons: pokemons?.map((item) => ({
+        pokemon: {
+          alternatePicture: item.sprites.front_default as string,
+          name: item.name,
+          types: item.types,
+          picture: getUrlImageFromPokemonId(
+            item.id,
+            "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/",
+          ),
+        },
+      })),
+      itemsPerPage: quantity,
+    };
 
     return response;
   } catch (e: any) {

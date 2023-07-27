@@ -32,7 +32,6 @@ export default defineEventHandler(async (event) => {
 
     return response;
   } catch (e: any) {
-    console.log(e.message);
     return { message: e.message };
   }
 });
