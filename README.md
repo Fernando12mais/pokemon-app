@@ -47,6 +47,22 @@ pnpm run build
 yarn build
 ```
 
+## Testing
+
+Test the application:
+
+```bash
+# npm
+npm run test
+
+# pnpm
+pnpm run test
+
+# yarn
+yarn test
+```
+
+
 Locally preview production build:
 
 ```bash
