@@ -7,7 +7,7 @@ describe("Tests for /pokemon-by-name route", async () => {
     server: true,
   });
 
-  test.only("Should get pokemon by its name", async () => {
+  test("Should get pokemon by its name", async () => {
     const data: PokemonByNameResponse = await $fetch("/api/pokemon/pikachu");
     expect(data.name).toBe("pikachu");
   });
