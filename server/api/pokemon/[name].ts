@@ -1,4 +1,5 @@
 import { PokemonByNameResponse } from "models/server/api/pokemon";
+import { EvolutionChain } from "pokedex-promise-v2";
 import pokedexApi from "~/libs/pokedex-api";
 import getUrlImageFromPokemonId from "~/utils/get-url-image-from-pokemon-id";
 
@@ -9,6 +10,42 @@ export default defineEventHandler(async (event) => {
     const pokemon = await pokedexApi.getPokemonByName(name || "");
 
     const data = await pokedexApi.getPokemonSpeciesByName(name || "");
+    const evolutionChain: EvolutionChain = await fetch(
+      data.evolution_chain?.url || "",
+    ).then((res) => res.json());
+
+    const pokemonNames = evolutionChain.chain.evolves_to.reduce(
+      (acc: string[], item) => {
+        acc.push(item.species.name);
+
+        const firstEvolution = item.evolves_to?.[0];
+
+        if (firstEvolution) {
+          acc.push(firstEvolution.species.name);
+
+          const secondEvolution = firstEvolution.evolves_to?.[0];
+
+          if (secondEvolution) {
+            acc.push(secondEvolution.species.name);
+          }
+        }
+
+        return acc;
+      },
+      [],
+    );
+
+    pokemonNames.unshift(evolutionChain.chain.species.name);
+
+    const evolutionPokemons = await pokedexApi.getPokemonByName(pokemonNames);
+
+    const evolution = evolutionPokemons.map((pokemon) => ({
+      name: pokemon.name,
+      picture: getUrlImageFromPokemonId(
+        pokemon.id,
+        "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/",
+      ),
+    }));
 
     const description =
       data.flavor_text_entries
@@ -28,6 +65,7 @@ export default defineEventHandler(async (event) => {
         "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/",
       ),
       alternatePicture: pokemon.sprites.front_default as string,
+      evolution,
     };
 
     return response;

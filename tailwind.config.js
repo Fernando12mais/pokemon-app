@@ -106,7 +106,7 @@ module.exports = {
         },
 
         ".is-pinned": {
-          "@apply bg-action p-4 duration-75": {},
+          "@apply bg-action p-4 duration-75 sticky top-[-1px] z-20": {},
         },
       });
     },

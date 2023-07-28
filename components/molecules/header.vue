@@ -5,13 +5,12 @@ const emits = defineEmits<{ onSearch: [value: string] }>();
 defineProps<{ items: AutoCompleteProps["items"] }>();
 
 const { getItem, setItem } = useLocalStorage();
-const header = ref<HTMLDivElement>();
 
 const onSearch = (value: string) => {
   setItem("name", value);
   emits("onSearch", value);
 };
-
+const header = ref<HTMLDivElement>();
 const name = ref("");
 onMounted(() => {
   name.value = getItem("name");
@@ -35,7 +34,7 @@ onMounted(() => {
   <div class="mb-2">
     <IconLogo />
   </div>
-  <header class="sticky top-[-1px] z-10 px-4" ref="header">
+  <header class="px-4" ref="header">
     <nav class="flex flex-col gap-4">
       <div>
         <AtmAutoComplete

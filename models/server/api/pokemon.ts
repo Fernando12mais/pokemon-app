@@ -7,6 +7,7 @@ export type PokemonByNameResponse = Pick<
   description: string;
   picture: string;
   alternatePicture: string;
+  evolution: { name: string; picture: string }[];
 };
 
 export type PokemonsNamesResponse = {
