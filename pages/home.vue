@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { PokemonsSearchResponse } from "models/server/api/pokemon";
+import {
+  PokemonsNamesResponse,
+  PokemonsSearchResponse,
+} from "models/server/api/pokemon";
 
 let name = "";
 let offset = 0;
 const search = ref(`/api/search`);
 const loading = ref(true);
 
-const { data: pokemonNames } = await useFetch("/api/pokemons-names");
+const { data: pokemonNames } = await useFetch<PokemonsNamesResponse>(
+  "/api/pokemons-names",
+);
 const { data, pending } = await useFetch<PokemonsSearchResponse>(search, {
   server: false,
   immediate: false,
