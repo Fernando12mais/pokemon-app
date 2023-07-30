@@ -60,10 +60,7 @@ export default defineEventHandler(async (event) => {
       stats: pokemon.stats,
       types: pokemon.types,
       description,
-      picture: getUrlImageFromPokemonId(
-        pokemon.id,
-        "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/",
-      ),
+      picture: pokemon.sprites.other["official-artwork"].front_default || "",
       alternatePicture: pokemon.sprites.front_default as string,
       evolution,
     };

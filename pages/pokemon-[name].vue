@@ -23,11 +23,14 @@ useHead({
   ],
 });
 
-const { data } = await useFetch<PokemonByNameResponse>(
+const { data, pending } = await useFetch<PokemonByNameResponse>(
   `/api/pokemon/${pokemonName}`,
+  {
+    lazy: true,
+  },
 );
 
-const pokemonType = data.value?.types[0].type.name;
+const pokemonType = () => data.value?.types[0].type.name;
 
 const header = ref<HTMLDivElement>();
 
@@ -45,11 +48,18 @@ onMounted(() => {
     observer.unobserve(element);
   };
 });
+
+onMounted(() => {
+  console.log(pending.value);
+});
 </script>
 
 <template>
+  <TmpLoading :loading="pending" />
+
   <div
-    :class="`min-h-screen bg-action bg-pokemon-${pokemonType} flex flex-col `"
+    v-if="!pending"
+    :class="`min-h-screen bg-action bg-pokemon-${pokemonType()} flex flex-col `"
   >
     <header ref="header" class="flex items-center justify-center !px-1 pt-4">
       <div
@@ -86,19 +96,19 @@ onMounted(() => {
               />
             </div>
 
-            <h2 :class="`text-pokemon-${pokemonType} my-4`">About:</h2>
+            <h2 :class="`text-pokemon-${pokemonType()} my-4`">About:</h2>
 
             <div class="grid grid-cols-3">
               <div
                 class="flex items-center justify-center gap-1 border-r border-r-black body-2"
               >
-                <IconWeight :class="`fill-pokemon-${pokemonType} w-8`" />
+                <IconWeight :class="`fill-pokemon-${pokemonType()} w-8`" />
 
                 <span>{{ data?.weight }} KG</span>
               </div>
 
               <div class="flex items-center justify-center gap-1 body-2">
-                <IconMeasure :class="`fill-pokemon-${pokemonType} w-8`" />
+                <IconMeasure :class="`fill-pokemon-${pokemonType()} w-8`" />
 
                 <span>{{ data?.height }} M</span>
               </div>
@@ -117,21 +127,21 @@ onMounted(() => {
               {{ data?.description }}
             </p>
 
-            <h2 :class="`text-pokemon-${pokemonType} my-4`">Base stats:</h2>
+            <h2 :class="`text-pokemon-${pokemonType()} my-4`">Base stats:</h2>
           </div>
 
           <OrgStats
             v-if="data?.stats.length"
             :stats="
               data.stats.map((stat) => ({
-                type: pokemonType || '',
+                type: pokemonType() || '',
                 stat: stat,
               }))
             "
           />
 
           <div v-if="data?.evolution && data.evolution.length > 1">
-            <h2 :class="`text-pokemon-${pokemonType} my-4`">Evolution:</h2>
+            <h2 :class="`text-pokemon-${pokemonType()} my-4`">Evolution:</h2>
 
             <ul class="grid justify-center gap-4 sm:grid-cols-3">
               <div
@@ -139,7 +149,7 @@ onMounted(() => {
                 v-for="(pokemon, index) in data.evolution"
               >
                 <li
-                  :class="`bg-pokemon-${pokemonType} h-full rounded p-2 transition-all duration-200 hover:scale-105 hover:shadow-6-dp ${
+                  :class="`bg-pokemon-${pokemonType()} h-full rounded p-2 transition-all duration-200 hover:scale-105 hover:shadow-6-dp ${
                     pokemon.name == pokemonName && '!bg-action'
                   }`"
                 >

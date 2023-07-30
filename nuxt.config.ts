@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     { path: "~/components/atoms", prefix: "atm" },
     { path: "~/components/molecules", prefix: "mol" },
     { path: "~/components/organisms", prefix: "org" },
+    { path: "~/components/templates", prefix: "tmp" },
     { path: "~/assets/icons", prefix: "icon" },
   ],
 

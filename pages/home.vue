@@ -7,14 +7,11 @@ import {
 let name = "";
 let offset = 0;
 const search = ref(`/api/search`);
-const loading = ref(true);
 
-const { data: pokemonNames } = await useFetch<PokemonsNamesResponse>(
-  "/api/pokemons-names",
-);
+const { data: pokemonNames, pending: loadingNames } =
+  await useFetch<PokemonsNamesResponse>("/api/pokemons-names", { lazy: true });
 const { data, pending } = await useFetch<PokemonsSearchResponse>(search, {
-  server: false,
-  immediate: false,
+  lazy: true,
 });
 
 const { debounce } = useDebounce();
@@ -49,12 +46,6 @@ function goToFirstPage() {
   search.value = `/api/search?offset=${offset}&name=${name}`;
 }
 
-watch(pending, (newValue) => {
-  debounce(() => {
-    loading.value = newValue;
-  }, 80);
-});
-
 onMounted(() => {
   name = getItem("name");
   offset = getItem("offset");
@@ -63,7 +54,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative min-h-screen bg-identity-primary pb-4">
+  <TmpLoading :loading="loadingNames || pending" />
+  <div
+    v-if="!loadingNames && !pending"
+    class="relative min-h-screen bg-identity-primary pb-4"
+  >
     <MolHeader
       v-if="pokemonNames?.length"
       :items="pokemonNames"
@@ -77,7 +72,7 @@ onMounted(() => {
         >
       </div>
       <OrgCards
-        :loading="loading"
+        :loading="pending"
         title="Pokémons"
         :pokemons="data?.pokemons || []"
       />
